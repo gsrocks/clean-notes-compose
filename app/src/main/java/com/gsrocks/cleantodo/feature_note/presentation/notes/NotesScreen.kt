@@ -15,12 +15,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gsrocks.cleantodo.R
 import com.gsrocks.cleantodo.core.presentation.navigation.Screen
 import com.gsrocks.cleantodo.core.presentation.utils.LocalSpacing
 import com.gsrocks.cleantodo.core.presentation.navigation.UiEvent
+import com.gsrocks.cleantodo.core.utils.TestTags
 import com.gsrocks.cleantodo.feature_note.presentation.notes.components.NoteItem
 import com.gsrocks.cleantodo.feature_note.presentation.notes.components.OrderSection
 import kotlinx.coroutines.launch
@@ -86,6 +88,7 @@ fun NotesScreen(
             ) {
                 OrderSection(
                     modifier = Modifier
+                        .testTag(TestTags.ORDER_SECTION)
                         .fillMaxWidth()
                         .padding(spacing.spaceMedium),
                     noteOrder = state.noteOrder,

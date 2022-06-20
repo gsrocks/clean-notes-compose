@@ -25,6 +25,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +33,7 @@ import com.gsrocks.cleantodo.R
 import com.gsrocks.cleantodo.core.presentation.components.ClearFocusView
 import com.gsrocks.cleantodo.core.presentation.navigation.UiEvent
 import com.gsrocks.cleantodo.core.presentation.utils.LocalSpacing
+import com.gsrocks.cleantodo.core.utils.TestTags
 import com.gsrocks.cleantodo.feature_note.domain.model.Note
 import kotlinx.coroutines.launch
 
@@ -110,6 +112,7 @@ fun AddEditNoteScreen(
                         viewModel.onAction(AddEditNoteAction.TitleEntered(it))
                     },
                     modifier = Modifier
+                        .testTag(TestTags.TITLE_TEXT_FIELD)
                         .fillMaxWidth()
                         .focusRequester(titleFocusRequester)
                         .focusProperties { next = contentFocusRequester },
@@ -128,6 +131,7 @@ fun AddEditNoteScreen(
                         viewModel.onAction(AddEditNoteAction.ContentEntered(it))
                     },
                     modifier = Modifier
+                        .testTag(TestTags.CONTENT_TEXT_FIELD)
                         .fillMaxSize()
                         .focusRequester(contentFocusRequester),
                     placeholder = { Text(text = stringResource(R.string.enter_some_content)) },
