@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Sort
@@ -15,9 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gsrocks.cleantodo.R
 import com.gsrocks.cleantodo.core.presentation.navigation.Screen
@@ -38,6 +36,7 @@ fun NotesScreen(
     val state = viewModel.state
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     Scaffold(
         floatingActionButton = {
@@ -52,6 +51,7 @@ fun NotesScreen(
                 )
             }
         },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -115,8 +115,8 @@ fun NotesScreen(
                             viewModel.onAction(NotesAction.DeleteNote(it))
                             scope.launch {
                                 val result = snackbarHostState.showSnackbar(
-                                    message = "Note deleted",
-                                    actionLabel = "Undo"
+                                    message = context.getString(R.string.note_deleted),
+                                    actionLabel = context.getString(R.string.undo)
                                 )
                                 if (result == SnackbarResult.ActionPerformed) {
                                     viewModel.onAction(NotesAction.RestoreNote)

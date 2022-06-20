@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ fun AddEditNoteScreen(
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
+    val context = LocalContext.current
 
     val noteBackgroundAnimatable = remember {
         Animatable(
@@ -43,11 +45,16 @@ fun AddEditNoteScreen(
         )
     }
     val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowSnackbar -> {}
+                is UiEvent.ShowSnackbar -> snackbarHostState.showSnackbar(
+                    message = event.message.asString(
+                        context
+                    )
+                )
                 is UiEvent.NavigateUp -> onNavigateUp()
                 else -> Unit
             }
@@ -64,7 +71,8 @@ fun AddEditNoteScreen(
                     contentDescription = stringResource(R.string.save_note)
                 )
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { padding ->
         Column(
             modifier = Modifier

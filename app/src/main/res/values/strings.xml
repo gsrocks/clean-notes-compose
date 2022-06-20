@@ -13,4 +13,6 @@
     <string name="enter_some_content">Enter some content</string>
     <string name="could_not_save_note">Couldn\'t save note</string>
     <string name="save_note">Save note</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">Undo</string>
 </resources>
