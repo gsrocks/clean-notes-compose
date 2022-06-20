@@ -4,7 +4,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
+import com.gsrocks.cleantodo.core.presentation.utils.Dimensions
+import com.gsrocks.cleantodo.core.presentation.utils.LocalSpacing
 
 private val DarkColorPalette = darkColorScheme(
     primary = Color.White,
@@ -20,10 +23,11 @@ fun CleanTodoTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = DarkColorPalette,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalSpacing provides Dimensions()) {
+        MaterialTheme(
+            colorScheme = DarkColorPalette,
+            typography = Typography,
+            content = content
+        )
+    }
 }

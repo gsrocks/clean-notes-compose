@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteRepository {
     fun watchNotes(): Flow<List<Note>>
 
-    suspend fun getNoteById(id: Int): Result<Note?>
+    suspend fun getNoteById(id: Int): Result<Note>
 
     suspend fun insertNote(note: Note): Result<Unit>
 

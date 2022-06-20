@@ -14,9 +14,9 @@ class NoteRepositoryImpl(
         return dao.watchNotes().map { it.map { noteEntity -> noteEntity.toNote() } }
     }
 
-    override suspend fun getNoteById(id: Int): Result<Note?> {
+    override suspend fun getNoteById(id: Int): Result<Note> {
         return try {
-            val result = dao.getNoteById(id)?.toNote()
+            val result = dao.getNoteById(id).toNote()
             Result.success(result)
         } catch (e: Throwable) {
             Result.failure(e)

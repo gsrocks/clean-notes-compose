@@ -43,6 +43,7 @@ class NotesViewModel @Inject constructor(
                 if (state.noteOrder == action.noteOrder) {
                     return
                 }
+                state = state.copy(noteOrder = action.noteOrder)
                 watchNotes(action.noteOrder)
             }
             is NotesAction.DeleteNote -> {
@@ -58,7 +59,7 @@ class NotesViewModel @Inject constructor(
                 }
             }
             is NotesAction.ToggleOrderSection -> {
-                state = state.copy(isOrderSectionVisible = state.isOrderSectionVisible)
+                state = state.copy(isOrderSectionVisible = !state.isOrderSectionVisible)
             }
         }
     }

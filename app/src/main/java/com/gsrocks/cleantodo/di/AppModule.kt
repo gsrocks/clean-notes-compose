@@ -7,11 +7,11 @@ import com.gsrocks.cleantodo.feature_note.data.repository.NoteRepositoryImpl
 import com.gsrocks.cleantodo.feature_note.domain.repository.NoteRepository
 import com.gsrocks.cleantodo.feature_note.domain.use_case.AddNoteUseCase
 import com.gsrocks.cleantodo.feature_note.domain.use_case.DeleteNoteUseCase
+import com.gsrocks.cleantodo.feature_note.domain.use_case.GetNoteUseCase
 import com.gsrocks.cleantodo.feature_note.domain.use_case.WatchNotesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(@ApplicationContext application: Application): NoteDatabase {
+    fun provideNoteDatabase(application: Application): NoteDatabase {
         return Room.databaseBuilder(
             application,
             NoteDatabase::class.java,
@@ -51,5 +51,10 @@ object AppModule {
     @Singleton
     fun provideAddNoteUseCase(noteRepository: NoteRepository): AddNoteUseCase {
         return AddNoteUseCase(noteRepository)
+    }
+
+    @Provides
+    fun provideGetNoteUseCase(noteRepository: NoteRepository): GetNoteUseCase {
+        return GetNoteUseCase(noteRepository)
     }
 }

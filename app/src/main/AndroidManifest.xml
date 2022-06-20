@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CleanTodo"
         tools:targetApi="31">
         <activity
-            android:name=".feature_note.presentation.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CleanTodo">
             <intent-filter>
